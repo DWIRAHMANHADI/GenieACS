@@ -1,3 +1,32 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { ConfigProvider } from "./context/ConfigContext";
+import LoginPage from "./pages/LoginPage";
+import DashboardPage from "./pages/DashboardPage";
+import DevicesPage from "./pages/DevicesPage";
+import DeviceDetailPage from "./pages/DeviceDetailPage";
+import VirtualParamPage from "./pages/VirtualParamPage";
+import SettingsPage from "./pages/SettingsPage";
+import Navbar from "./components/Navbar";
+
+function PrivateRoute({ children }) {
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/" />;
+}
+
+function LayoutWithNavbar({ children }) {
+  const location = useLocation();
+  // Jangan tampilkan navbar di halaman login
+  const hideNavbar = location.pathname === "/";
+  return (
+    <>
+      {!hideNavbar && <Navbar />}
+      {children}
+    </>
+  );
+}
+
 function App() {
   return (
     <AuthProvider>
@@ -62,3 +91,5 @@ function App() {
     </AuthProvider>
   );
 }
+
+export default App;
