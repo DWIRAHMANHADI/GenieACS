@@ -29,58 +29,66 @@ function LayoutWithNavbar({ children }) {
 
 function App() {
   return (
-    <ConfigProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <ConfigProvider>
         <Router>
-          <LayoutWithNavbar>
-            <Routes>
-              <Route path="/" element={<LoginPage />} />
-              <Route
-                path="/dashboard"
-                element={
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route
+              path="/dashboard"
+              element={
+                <LayoutWithNavbar>
                   <PrivateRoute>
                     <DashboardPage />
                   </PrivateRoute>
-                }
-              />
-              <Route
-                path="/devices"
-                element={
+                </LayoutWithNavbar>
+              }
+            />
+            <Route
+              path="/devices"
+              element={
+                <LayoutWithNavbar>
                   <PrivateRoute>
                     <DevicesPage />
                   </PrivateRoute>
-                }
-              />
-              <Route
-                path="/devices/:id"
-                element={
+                </LayoutWithNavbar>
+              }
+            />
+            <Route
+              path="/devices/:id"
+              element={
+                <LayoutWithNavbar>
                   <PrivateRoute>
                     <DeviceDetailPage />
                   </PrivateRoute>
-                }
-              />
-              <Route
-                path="/virtual-params"
-                element={
-                  <PrivateRoute>
-                    <VirtualParamPage />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/settings"
-                element={
+                </LayoutWithNavbar>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <LayoutWithNavbar>
                   <PrivateRoute>
                     <SettingsPage />
                   </PrivateRoute>
-                }
-              />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </LayoutWithNavbar>
+                </LayoutWithNavbar>
+              }
+            />
+            <Route
+              path="/virtual-params"
+              element={
+                <LayoutWithNavbar>
+                  <PrivateRoute>
+                    <VirtualParamPage />
+                  </PrivateRoute>
+                </LayoutWithNavbar>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </Router>
-      </AuthProvider>
-    </ConfigProvider>
+      </ConfigProvider>
+    </AuthProvider>
   );
 }
 
