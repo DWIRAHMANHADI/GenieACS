@@ -77,7 +77,7 @@ export default function DashboardPage() {
           <div className="text-center text-red-500">{error}</div>
         ) : (
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-8"
+            className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8"
             initial="hidden" animate="visible" variants={{visible:{transition:{staggerChildren:0.13}},hidden:{}}}
           >
             {[
@@ -92,22 +92,24 @@ export default function DashboardPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + i*0.12, type: "spring", stiffness: 70 }}
                 whileHover={{ scale: 1.04, y: -3 }}
-                className={`relative rounded-2xl shadow-xl p-8 flex flex-col items-center gap-2 ${item.color} border border-blue-200/60 dark:border-blue-800/60 transition-all duration-200 group`}
+                whileTap={{ scale: 0.98 }}
+                className={`relative rounded-2xl shadow-xl px-5 py-7 sm:px-7 sm:py-9 flex flex-col items-center gap-3 ${item.color} border border-blue-200/60 dark:border-blue-800/60 transition-all duration-200 group cursor-pointer active:scale-[0.98] select-none`}
                 style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.10)' }}
+                tabIndex={0}
               >
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-1">
                   {item.icon === 'devices' && (
-                    <svg className="w-8 h-8 text-blue-500 dark:text-blue-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 18h6"/></svg>
+                    <svg className="w-10 h-10 text-blue-500 dark:text-blue-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 18h6"/></svg>
                   )}
                   {item.icon === 'wifi' && (
-                    <svg className="w-8 h-8 text-green-500 dark:text-green-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M12 20h.01"/></svg>
+                    <svg className="w-10 h-10 text-green-500 dark:text-green-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M12 20h.01"/></svg>
                   )}
                   {item.icon === 'power-off' && (
-                    <svg className="w-8 h-8 text-red-500 dark:text-red-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2v10"/><path d="M6.38 6.38a9 9 0 1 0 11.24 0"/></svg>
+                    <svg className="w-10 h-10 text-red-500 dark:text-red-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2v10"/><path d="M6.38 6.38a9 9 0 1 0 11.24 0"/></svg>
                   )}
                 </div>
-                <div className="text-4xl font-extrabold mb-1 text-gray-800 dark:text-gray-100 drop-shadow-sm">{item.value}</div>
-                <div className="text-base text-gray-700 dark:text-gray-200 font-medium mb-2">{item.label}</div>
+                <div className="text-4xl font-extrabold mb-0.5 text-gray-800 dark:text-gray-100 drop-shadow-sm tracking-tight">{item.value}</div>
+                <div className="text-base text-gray-700 dark:text-gray-200 font-semibold mb-1 text-center leading-tight">{item.label}</div>
                 {item.label !== "Total Perangkat" && (
                   <span className={`px-3 py-0.5 text-xs rounded-full font-semibold ${item.label==='Online' ? 'bg-green-500/90 text-white' : 'bg-red-500/90 text-white'} shadow-sm`}>{item.label}</span>
                 )}
