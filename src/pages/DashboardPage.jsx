@@ -36,23 +36,13 @@ export default function DashboardPage() {
           console.log('Contoh data device:', data[0]);
         }
         const total = data.length;
+        const now = Date.now();
+        const ONLINE_THRESHOLD = 5 * 60 * 1000; // 5 menit
         let online = 0, offline = 0;
-        let hasOnlineField = false;
         data.forEach((d) => {
-          if (
-            d["_online"] === true ||
-            d["_online"] === "true" ||
-            d["_online"] === 1
-          ) {
-            online++;
-            hasOnlineField = true;
-          } else {
-            offline++;
-          }
+          if (d._lastInformMs && now - d._lastInformMs < ONLINE_THRESHOLD) online++;
+          else offline++;
         });
-        if (!hasOnlineField && total > 0) {
-          setError("Tidak ditemukan field _online pada data perangkat. Cek struktur data di console browser!");
-        }
         setStats({ total, online, offline });
         setLoading(false);
       })
