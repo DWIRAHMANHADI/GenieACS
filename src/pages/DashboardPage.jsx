@@ -32,12 +32,27 @@ export default function DashboardPage() {
       })
       .then((data) => {
         // GenieACS /devices returns array of devices
+        if (data && data.length > 0) {
+          console.log('Contoh data device:', data[0]);
+        }
         const total = data.length;
         let online = 0, offline = 0;
+        let hasOnlineField = false;
         data.forEach((d) => {
-          if (d["_online"] === true) online++;
-          else offline++;
+          if (
+            d["_online"] === true ||
+            d["_online"] === "true" ||
+            d["_online"] === 1
+          ) {
+            online++;
+            hasOnlineField = true;
+          } else {
+            offline++;
+          }
         });
+        if (!hasOnlineField && total > 0) {
+          setError("Tidak ditemukan field _online pada data perangkat. Cek struktur data di console browser!");
+        }
         setStats({ total, online, offline });
         setLoading(false);
       })
