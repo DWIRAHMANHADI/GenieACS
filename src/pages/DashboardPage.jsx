@@ -96,6 +96,7 @@ export default function DashboardPage() {
                 className={`relative rounded-2xl shadow-xl px-5 py-7 sm:px-7 sm:py-9 flex flex-col items-center gap-3 ${item.color} border border-blue-200/60 dark:border-blue-800/60 transition-all duration-200 group cursor-pointer active:scale-[0.98] select-none`}
                 style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.10)' }}
                 tabIndex={0}
+                onClick={() => navigate('/devices')}
               >
                 <div className="flex items-center gap-2 mb-1">
                   {item.icon === 'devices' && (
