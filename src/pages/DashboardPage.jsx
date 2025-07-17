@@ -39,8 +39,19 @@ export default function DashboardPage() {
         const now = Date.now();
         const ONLINE_THRESHOLD = 5 * 60 * 1000; // 5 menit
         let online = 0, offline = 0;
-        data.forEach((d) => {
-          if (d._lastInformMs && now - d._lastInformMs < ONLINE_THRESHOLD) online++;
+        data.forEach((d, idx) => {
+          let lastInformMs = d._lastInformMs;
+          if (lastInformMs) {
+            // Deteksi satuan detik/ms
+            if (lastInformMs < 1e12) lastInformMs = lastInformMs * 1000;
+          } else if (d._lastInform) {
+            // Fallback ke _lastInform ISO string
+            lastInformMs = Date.parse(d._lastInform);
+          }
+          if (idx === 0) {
+            console.log('now:', now, 'lastInformMs:', lastInformMs, 'selisih (ms):', now - lastInformMs);
+          }
+          if (lastInformMs && now - lastInformMs < ONLINE_THRESHOLD) online++;
           else offline++;
         });
         setStats({ total, online, offline });
